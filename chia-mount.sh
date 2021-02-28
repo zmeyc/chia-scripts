@@ -30,23 +30,23 @@ do_add() {
   [ "$#" -eq 1 ] || fatal "Expected device name"
   local dev_name="$1"
   local label
-  label="$(e2label "${dev_name}")"
+  label="$(sudo e2label "${dev_name}")"
   printf "Disk label: %s\n" "${label}"
 
   local mountpoint
   mountpoint="/mnt/${label}"
 
   printf "Creating mountpoint: %s\n" "${mountpoint}"
-  mkdir -p "${mountpoint}"
+  sudo mkdir -p "${mountpoint}"
 
   echo "Updating /etc/fstab"
-  printf "LABEL=%s %s auto nosuid,nodev,nofail,noatime 0 0\n" "${label}" "${mountpoint}" >> /etc/fstab
+  printf "LABEL=%s %s auto nosuid,nodev,nofail,noatime 0 0\n" "${label}" "${mountpoint}" | sudo tee -a /etc/fstab
 
   printf "Mounting: %s\n" "${mountpoint}"
-  mount "${mountpoint}"
+  sudo mount "${mountpoint}"
 
   echo "Changing files ownership"
-  chown -R "$(id -u):$(id -g)" "${mountpoint}"
+  sudo chown -R "$(id -u):$(id -g)" "${mountpoint}"
 
   echo "Done."
 }
