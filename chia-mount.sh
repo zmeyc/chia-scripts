@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 script_root="$(cd "$(dirname "$(readlink "$([[ "${OSTYPE}" == linux* ]] && echo "-f")" "$0")")"; pwd)"
-source "${script_root}/utils.sh"
+source "${script_root}/lib/utils.sh"
 
 APPNAME=chia-mount
 
