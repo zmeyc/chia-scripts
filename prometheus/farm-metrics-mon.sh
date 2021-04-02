@@ -57,7 +57,6 @@ chia="${HOME}/chia-blockchain/venv/bin/chia"
 
 summary="$("${chia}" farm summary)"
 
-printf "farm__farming_status %s\n" "$(get_farming_status "${summary}")"
 printf "farm__total_chia_farmed %s\n" "$(get_total_chia_farmed "${summary}")"
 printf "farm__user_transaction_fees %s\n" "$(get_user_transaction_fees "${summary}")"
 printf "farm__block_rewards %s\n" "$(get_block_rewards "${summary}")"
