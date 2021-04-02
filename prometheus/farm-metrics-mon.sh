@@ -5,8 +5,8 @@ source "${script_root}/../lib/utils.sh"
 
 APPNAME=farm-metrics-collector
 
-extract_number() {
-  grep -Eo '[+-]?[0-9]+([.][0-9]+)?'
+get_wallet_height() {
+  printf "%s" "$1" | sed -n -e 's/^Wallet height: \([.[:alnum:]]\+\).*/\1/p'
 }
 
 get_farming_status() {
@@ -54,6 +54,10 @@ is_farming() {
 }
 
 chia="${HOME}/chia-blockchain/venv/bin/chia"
+
+wallet_info="$("${chia}" wallet show)"
+
+printf "wallet_height %s\n" "$(get_wallet_height "${wallet_info}")"
 
 summary="$("${chia}" farm summary)"
 
