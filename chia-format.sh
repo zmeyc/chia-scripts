@@ -38,7 +38,7 @@ ext4_format() {
   local dev_name="$1"
   local label="$2"
 
-  mkfs.ext4 -F -T largefile4 -m 0 -E lazy_itable_init=0,lazy_journal_init=0 -O ^has_journal -L "${label}" "${dev_name}"
+  sudo mkfs.ext4 -F -T largefile4 -m 0 -E lazy_itable_init=0,lazy_journal_init=0 -O ^has_journal -L "${label}" "${dev_name}"
 }
 
 do_ext4_single() {
@@ -54,9 +54,9 @@ do_ext4_tmp_dest() {
   local dev_name="$1"
   local label="$2"
 
-  /sbin/parted "${dev_name}" mklabel gpt --script
-  /sbin/parted "${dev_name}" mkpart primary 0% 350GiB --script
-  /sbin/parted "${dev_name}" mkpart primary 350GiB 100% --script
+  sudo /sbin/parted "${dev_name}" mklabel gpt --script
+  sudo /sbin/parted "${dev_name}" mkpart primary 0% 350GiB --script
+  sudo /sbin/parted "${dev_name}" mkpart primary 350GiB 100% --script
   sleep 1
   ext4_format "${dev_name}1" "${label}t"
   ext4_format "${dev_name}2" "${label}d"
