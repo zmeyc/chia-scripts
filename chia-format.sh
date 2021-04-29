@@ -55,8 +55,8 @@ do_ext4_tmp_dest() {
   local label="$2"
 
   sudo /sbin/parted "${dev_name}" mklabel gpt --script
-  sudo /sbin/parted "${dev_name}" mkpart primary 0% 350GiB --script
-  sudo /sbin/parted "${dev_name}" mkpart primary 350GiB 100% --script
+  sudo /sbin/parted "${dev_name}" mkpart primary 0% 300GiB --script
+  sudo /sbin/parted "${dev_name}" mkpart primary 300GiB 100% --script
   sleep 1
   ext4_format "${dev_name}1" "${label}t"
   ext4_format "${dev_name}2" "${label}d"
