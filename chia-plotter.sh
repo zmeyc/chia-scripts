@@ -5,7 +5,7 @@ source "${script_root}/lib/utils.sh"
 
 APPNAME=chia-plot
 
-RESERVE_MEMORY_MB=4096
+RESERVE_MEMORY_MB=6144
 
 usage() {
   if [ $# -eq 0 ]; then
@@ -100,12 +100,12 @@ do_plot() {
   cpu_threads="$(get_cpu_threads)"
 
   local memory_for_single_plotter
-  memory_for_single_plotter="$(calc "min(4508, floor(${memory_for_plotting} / ${cpu_threads}))")"
+  memory_for_single_plotter="$(calc "min(3400, floor(${memory_for_plotting} / ${cpu_threads}))")"
 
   printf "Total memory (MB):              %d\n" "${total_memory}"
   printf "Memory for plotting (MB):       %d\n" "${memory_for_plotting}"
   printf "Number of CPU threads:          %d\n" "${cpu_threads}"
-  printf "Memory for single plotter (MB): %d (2000 min, 4508 recomended)\n" "${memory_for_single_plotter}"
+  printf "Memory for single plotter (MB): %d (2000 min, 3400 recomended)\n" "${memory_for_single_plotter}"
   printf "Tmp dir:                        %s\n" "${tmp_dir}"
   printf "Tmp2 dir:                       %s\n" "${tmp2_dir}"
   printf "Dest dir:                       %s\n" "${dest_dir}"
